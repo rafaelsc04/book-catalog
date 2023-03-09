@@ -1,0 +1,29 @@
+<div class="container">
+  <header class="my-5 text-center">
+    <h1>Livros</h1>
+    <%= link_to 'Adicionar livros', new_book_path %>
+  </header>
+
+  <% if @books.count == 0 %>
+    <h1 class="display-6 text-center">Sem livros por enquanto</h1>
+  <% else %>
+    <table class="table table-sm">
+      <thead>
+        <tr>
+          <th>Autor</th>
+          <th>Título</th>
+          <th>ISBN</th>
+          <th>Número de páginas</th>
+        </tr>
+      </thead>
+      <tbody>
+          <% @books.each do |book| %>
+            <td><%= book.author %></td>
+            <td><%= book.title %></td>
+            <td><%= book.isbn %></td>
+            <td><%= book.page_count %></td>
+          <% end %>
+      </tbody>
+    </table>
+  <% end %>
+</div>
