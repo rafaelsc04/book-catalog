@@ -8,7 +8,7 @@
 
   <div class="w-25 mx-auto" style="margin-top: 5rem;">
     <%= form_with url: books_path do |f| %>
-      <%= f.text_field :isbn, class: 'form-control mb-3', placeholder: 'ISBN' %>
+      <%= f.text_field :isbn, class: 'form-control mb-3', placeholder: 'ISBN', required: true %>
       <%= f.submit 'Adicionar', class: 'btn btn-sm btn-primary' %>
     <% end %>
   </div>

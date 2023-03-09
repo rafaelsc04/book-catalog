@@ -9,16 +9,20 @@ class BooksController < ApplicationController
   def new; end
 
   def create
-    redirect_to new_book_path, alert: 'Could not find book by ISBN' && return unless book_data
+    if book_data
+      Book.create(book_data)
+      flash[:notice] = 'Livro adicionado :)'
+    else
+      flash[:alert] = 'Não encontrei nenhum livro com esse ISBN' 
+    end
 
-    Book.create(book_data)
-    redirect_to new_book_path, notice: 'Successfully created book'
+    redirect_to new_book_path
   end
 
   private
 
   def book_data
-    response = HTTParty.get("https://www.googleapis.com/books/v1/volumes?q=isbn:#{params[:isbn]}&key=AIzaSyASd43pJPWdWn672p9G4zB2S2Qgf7hQpnM")
+    response = HTTParty.get("https://www.googleapis.com/books/v1/volumes?q=isbn:#{params[:isbn]}&key=#{Rails.application.credentials[:google_api_key]}")
 
     data = JSON.parse(response.body).with_indifferent_access
 
